@@ -1,9 +1,5 @@
 package com.demo.car.action;
 
-import javax.servlet.ServletContext;
-
-import org.apache.struts2.util.ServletContextAware;
-import org.hibernate.SessionFactory;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -14,19 +10,16 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
 public class EditCarQuoteAction extends ActionSupport implements
-		ServletContextAware, ModelDriven<CarQuoteEntity> {
+		 ModelDriven<CarQuoteEntity> {
 
 
 	private static final long serialVersionUID = 1L;
 	private CarQuoteEntity carQuoteEntity = new CarQuoteEntity();
 	private String username;
-	private ServletContext ctx;
 
 	@Override
 	public String execute() throws Exception {
-		SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
-		CarQuoteDao carQuoteDao = new CarQuoteDaoImpl(sf);
-		
+		CarQuoteDao carQuoteDao = new CarQuoteDaoImpl();
 		CarQuoteEntity carQuote = carQuoteDao.searchCarQuote(carQuoteEntity.getQuoteNo());
 		username = carQuote.getCreatedBy();
 		carQuoteEntity.setQuoteNo(carQuote.getQuoteNo());
@@ -48,8 +41,7 @@ public class EditCarQuoteAction extends ActionSupport implements
 		UserDetails userDetails = (UserDetails) SecurityContextHolder
 				.getContext().getAuthentication().getPrincipal();
 		carQuoteEntity.setUpdatedBy(userDetails.getUsername());
-		SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
-		CarQuoteDao carQuoteDao = new CarQuoteDaoImpl(sf);
+		CarQuoteDao carQuoteDao = new CarQuoteDaoImpl();
 		carQuoteDao.saveCarQuote(carQuoteEntity);
 		return SUCCESS;
 	}
@@ -57,11 +49,6 @@ public class EditCarQuoteAction extends ActionSupport implements
 	@Override
 	public CarQuoteEntity getModel() {
 		return carQuoteEntity;
-	}
-
-	@Override
-	public void setServletContext(ServletContext sc) {
-		this.ctx = sc;
 	}
 
 	public String getUsername() {

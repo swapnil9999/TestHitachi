@@ -9,18 +9,18 @@ import org.hibernate.Transaction;
 
 import com.demo.car.dao.CarQuoteDao;
 import com.demo.car.entity.CarQuoteEntity;
+import com.demo.car.hbm.listener.HibernateUtility;
 
 public class CarQuoteDaoImpl implements CarQuoteDao {
 
 	private SessionFactory sf;
 
-	public CarQuoteDaoImpl(SessionFactory sf) {
-		this.sf = sf;
+	public CarQuoteDaoImpl() {
 	}
 
 	@Override
 	public CarQuoteEntity saveCarQuote(CarQuoteEntity carQuoteEntity) {
-
+		sf=HibernateUtility.getSessionFactory();
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
@@ -36,6 +36,7 @@ public class CarQuoteDaoImpl implements CarQuoteDao {
 
 	@Override
 	public CarQuoteEntity searchCarQuote(String quoteNo) {
+		sf=HibernateUtility.getSessionFactory();
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
 		CarQuoteEntity carQuoteEntity = null;
@@ -56,6 +57,7 @@ public class CarQuoteDaoImpl implements CarQuoteDao {
 
 	@Override
 	public boolean checkCarQuoteNo(String quoteNo) {
+		sf=HibernateUtility.getSessionFactory();
 		boolean flag = false;
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
@@ -81,6 +83,7 @@ public class CarQuoteDaoImpl implements CarQuoteDao {
 	@Override
 	public List<CarQuoteEntity> loadQuoteNo(String username) {
 		List<CarQuoteEntity> carQuoteEntities = null;
+		sf=HibernateUtility.getSessionFactory();
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
 		try {
@@ -102,6 +105,7 @@ public class CarQuoteDaoImpl implements CarQuoteDao {
 	@Override
 	public List<CarQuoteEntity> loadQuoteNo() {
 		List<CarQuoteEntity> carQuoteEntities = null;
+		sf=HibernateUtility.getSessionFactory();
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
 		try {

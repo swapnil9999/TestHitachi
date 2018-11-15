@@ -3,12 +3,9 @@ package com.demo.car.action;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.util.ServletContextAware;
-import org.hibernate.SessionFactory;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,13 +15,12 @@ import com.demo.car.dao.impl.CarQuoteDaoImpl;
 import com.demo.car.entity.CarQuoteEntity;
 import com.opensymphony.xwork2.ActionSupport;
 
-public class MainAction extends ActionSupport implements ServletContextAware {
+public class MainAction extends ActionSupport {
 
 	
 	private static final long serialVersionUID = 1L;
 	public String username;
 	public String password;
-	private ServletContext ctx;
 	private List<String> doors;
 	private List<String> fuelType;
 	private List<String> quoteNo;
@@ -98,8 +94,7 @@ public class MainAction extends ActionSupport implements ServletContextAware {
 				.anyMatch(r -> r.getAuthority().equals("ROLE_ADMIN"));
 
 		quoteNo = new ArrayList<String>();
-		SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
-		CarQuoteDao carQuoteDao = new CarQuoteDaoImpl(sf);
+		CarQuoteDao carQuoteDao = new CarQuoteDaoImpl();
 		if (hasUserRole == true) {
 			for (CarQuoteEntity carQuoteEntity : carQuoteDao.loadQuoteNo())
 				quoteNo.add(carQuoteEntity.getQuoteNo());
@@ -150,11 +145,6 @@ public class MainAction extends ActionSupport implements ServletContextAware {
 
 	public void setQuoteNo(List<String> quoteNo) {
 		this.quoteNo = quoteNo;
-	}
-
-	@Override
-	public void setServletContext(ServletContext sc) {
-		this.ctx = sc;
 	}
 
 	public List<String> getCarMake() {

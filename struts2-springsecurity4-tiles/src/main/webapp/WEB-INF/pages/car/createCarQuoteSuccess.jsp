@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h2>Your Qoute has been Saved Successfully. </h2>
+<h3>Your Qoute No <b>${quoteNo}</b> has been Saved Successfully . </h3>
 			 <input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
 
 </body>
