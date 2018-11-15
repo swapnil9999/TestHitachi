@@ -1,9 +1,10 @@
 package com.demo.car.action;
 
-public class QuotingUtil {
+public class CommonUtil {
 
    public static String generateQuoteNo() {
-        // Is there a logic you have used behind this random generation or if that is also random?
-		return randomGeneratedQuoteNo = (int) (Math.random() * 9000) + 1000;
+	   int randomPIN = (int) (Math.random() * 9000) + 1000;
+		String quoteNO = "QUO-" + randomPIN;
+		return quoteNO;
 	}
 }

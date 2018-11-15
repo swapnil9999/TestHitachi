@@ -16,21 +16,13 @@ public class CreateCarQuoteAction extends ActionSupport implements ModelDriven<C
 	public String execute() {
 		try {
 			CarQuoteDao carQuoteDao = new CarQuoteDaoImpl();
-			carQuote.setQuoteNo(generateQuoteNo());
+			carQuote.setQuoteNo(CommonUtil.generateQuoteNo());
 			carQuote.setQuote(100000);
 			carQuoteDao.saveCarQuote(carQuote);
 			return SUCCESS;
 		} catch (Exception e) {
 			return ERROR;
 		}
-	}
-
-	
-	public String generateQuoteNo() {
-
-		int randomPIN = (int) (Math.random() * 9000) + 1000;
-		String quoteNO = "QUO-" + randomPIN;
-		return quoteNO;
 	}
 
 	public String getStatusMsg() {
