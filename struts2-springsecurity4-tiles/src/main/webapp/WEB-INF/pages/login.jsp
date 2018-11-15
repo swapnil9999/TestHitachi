@@ -23,32 +23,24 @@
 
 <script type="text/javascript">
         	
-        function validateLogin(){
-        	
-        	/*  $.ajax({
-        	       type: 'POST',
-        	       url:'search.action?searchText='+ $("#searchValue").val()+'&environment='+$("#environmentSelect").val(),
-        	       dataType: 'json',
-        	       success: function(data){
-        	             console.log(stringify(data));
-        	        }}); */
-        	
-        	
-        	var name=document.loginForm.username.value;  
-        	var password=document.loginForm.password.value;    
-        	
-        	if (name==null || name==""){ 
-        		alert("Username can't be blank");
-        		return false;
-        	}else if(password==null || password==""){
-        		alert("Password can't be blank");
-        		return false;
-			}
-        	
-        	return true;
-        	
-        }
-        	</script>
+      
+	function validateLogin() {
+
+		var name = document.loginForm.username.value;
+		var password = document.loginForm.password.value;
+
+		if (name == null || name == "") {
+			alert("Username can't be blank");
+			return false;
+		} else if (password == null || password == "") {
+			alert("Password can't be blank");
+			return false;
+		}
+
+		return true;
+
+	}
+</script>
 
 </head>
 <body>

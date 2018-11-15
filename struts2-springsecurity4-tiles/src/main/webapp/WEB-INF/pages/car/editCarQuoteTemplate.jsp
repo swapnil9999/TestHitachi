@@ -9,12 +9,6 @@
 
 <script type="text/javascript">
 
-$(document).ready(function() {
-	
-
-});
-
-
 </script>
 </head>
 <body>
@@ -32,7 +26,6 @@ $(document).ready(function() {
 				<s:textfield name="transmission" id="transmission" label="Transmission"></s:textfield>
 				<s:textfield name="trim" id="trim" label="Trim"></s:textfield>
 				<s:textfield name="quote" id="quote" label="Quote"></s:textfield>
-				
 				<s:hidden  value="%{id}" name="id" />
 				<s:hidden  value="%{username}" name="createdBy" />
 				

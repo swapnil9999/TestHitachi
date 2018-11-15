@@ -9,10 +9,9 @@
 <form action="editCarQuoteAction" method="post">
 <table>
 
-<%-- 	<s:textfield name="quoteNo" id="quoteNo" label="Quote No" required="required"> </s:textfield>
- --%>	<s:select label="Quote No." headerKey="-1" headerValue="Select Quote No." list="quoteNo" name="quoteNo" value="defaulQuoteNo" required="required" />	
-	
+	<s:select label="Quote No." headerKey="-1" headerValue="Select Quote No." list="quoteNo" name="quoteNo" value="defaulQuoteNo" required="required" />	
 	<input type="hidden" name="${_csrf.parameterName}"  value="${_csrf.token}" />
+	
 	<s:submit></s:submit>
 
 

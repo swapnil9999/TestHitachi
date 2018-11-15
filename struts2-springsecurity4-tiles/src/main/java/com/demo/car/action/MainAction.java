@@ -37,11 +37,6 @@ public class MainAction extends ActionSupport implements ServletContextAware {
 	HttpServletRequest request = ServletActionContext.getRequest();
 
 	public String execute() {
-/*		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-*/		/*Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) userDetails.getAuthorities();
-		for (Iterator i = authorities.iterator(); i.hasNext();) {
-			SimpleGrantedAuthority authority = (SimpleGrantedAuthority) i.next();
-		}*/
 		this.setUsername(request.getUserPrincipal().getName());
 
 		// setting values for No of Doors.
@@ -109,8 +104,8 @@ public class MainAction extends ActionSupport implements ServletContextAware {
 			for (CarQuoteEntity carQuoteEntity : carQuoteDao.loadQuoteNo())
 				quoteNo.add(carQuoteEntity.getQuoteNo());
 		} else {
-			for (CarQuoteEntity quoteEntity : carQuoteDao.loadQuoteNo(userDetails
-					.getUsername()))
+			for (CarQuoteEntity quoteEntity : carQuoteDao
+					.loadQuoteNo(userDetails.getUsername()))
 				quoteNo.add(quoteEntity.getQuoteNo());
 		}
 		return SUCCESS;

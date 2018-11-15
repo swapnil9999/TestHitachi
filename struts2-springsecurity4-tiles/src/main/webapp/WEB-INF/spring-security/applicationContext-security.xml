@@ -9,7 +9,6 @@
     <global-method-security pre-post-annotations="enabled"/>
     <http auto-config="true">
     
-    
        <intercept-url pattern="/welcome" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
        <intercept-url pattern="/createCarQuote" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')"/>
        <intercept-url pattern="/editCarQuote" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
@@ -18,41 +17,19 @@
        <intercept-url pattern="/checkQuoteNo" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
        <intercept-url pattern="/editCarQuoteAction" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
        <intercept-url pattern="/editCarQuoteSubmit" access="hasAnyRole('ROLE_ADMIN','ROLE_USER')" />
-         
-       
        <intercept-url pattern="/searchCarQuote" access="hasAnyRole('ROLE_ADMIN')" />
        
-       
-        
-        
-        
-                                 
-<!--         <access-denied-handler error-page="/accessDenied"/>
- -->
         <form-login
             login-page="/login"
             default-target-url="/welcome"
             authentication-failure-url="/loginerror"
             username-parameter="username"
             password-parameter="password"
-          
             />
- 
         <logout logout-url="/j_spring_security_logout" 
         logout-success-url="/login" 
         invalidate-session="true" />
     </http>
-    
-   <!--  <authentication-manager erase-credentials="false">
-        <authentication-provider>
-            <user-service>
-                <user name="admin" password="admin" authorities="ROLE_ADMIN" />
-                <user name="user" password="user" authorities="ROLE_USER"/>
-            </user-service>
-        </authentication-provider>
-    </authentication-manager> -->
-    
-    
     
 		<authentication-manager>
 		<authentication-provider>
