@@ -20,7 +20,7 @@ public class EditCarQuoteAction extends ActionSupport implements
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private CarQuoteEntity carQuote_M = new CarQuoteEntity();
+	private CarQuoteEntity carQuoteEntity = new CarQuoteEntity();
 	private String username;
 	private ServletContext ctx;
 
@@ -29,39 +29,36 @@ public class EditCarQuoteAction extends ActionSupport implements
 		SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
 		CarQuoteDao carQuoteDao = new CarQuoteDaoImpl(sf);
 		
-		carQuote_M= carQuoteDao.searchCarQuote(carQuote_M
-				.getQuoteNo());
-		CarQuoteEntity carQuote_M1 = carQuoteDao.searchCarQuote(carQuote_M
-				.getQuoteNo());
-		username = carQuote_M1.getCreatedBy();
-		carQuote_M.setQuoteNo(carQuote_M1.getQuoteNo());
-		carQuote_M.setCarMake(carQuote_M1.getCarMake());
-		carQuote_M.setCarModel(carQuote_M1.getCarModel());
-		carQuote_M.setYrsOfManufacture(carQuote_M1.getYrsOfManufacture());
-		carQuote_M.setDoors(carQuote_M1.getDoors());
-		carQuote_M.setTransmission(carQuote_M1.getTransmission());
-		carQuote_M.setFuelType(carQuote_M1.getFuelType());
-		carQuote_M.setEngineSize(carQuote_M1.getEngineSize());
-		carQuote_M.setTrim(carQuote_M1.getTrim());
-		carQuote_M.setId(carQuote_M1.getId());
-		carQuote_M.setQuote(carQuote_M1.getQuote());
-		carQuote_M.setCreatedBy(carQuote_M1.getCreatedBy());
+		CarQuoteEntity carQuote = carQuoteDao.searchCarQuote(carQuoteEntity.getQuoteNo());
+		username = carQuote.getCreatedBy();
+		carQuoteEntity.setQuoteNo(carQuote.getQuoteNo());
+		carQuoteEntity.setCarMake(carQuote.getCarMake());
+		carQuoteEntity.setCarModel(carQuote.getCarModel());
+		carQuoteEntity.setYrsOfManufacture(carQuote.getYrsOfManufacture());
+		carQuoteEntity.setDoors(carQuote.getDoors());
+		carQuoteEntity.setTransmission(carQuote.getTransmission());
+		carQuoteEntity.setFuelType(carQuote.getFuelType());
+		carQuoteEntity.setEngineSize(carQuote.getEngineSize());
+		carQuoteEntity.setTrim(carQuote.getTrim());
+		carQuoteEntity.setId(carQuote.getId());
+		carQuoteEntity.setQuote(carQuote.getQuote());
+		carQuoteEntity.setCreatedBy(carQuote.getCreatedBy());
 		return SUCCESS;
 	}
 
 	public String draftSave() {
 		UserDetails userDetails = (UserDetails) SecurityContextHolder
 				.getContext().getAuthentication().getPrincipal();
-		carQuote_M.setUpdatedBy(userDetails.getUsername());
+		carQuoteEntity.setUpdatedBy(userDetails.getUsername());
 		SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
 		CarQuoteDao carQuoteDao = new CarQuoteDaoImpl(sf);
-		CarQuoteEntity carQuote_M1 = carQuoteDao.saveCarQuote(carQuote_M);
+		carQuoteDao.saveCarQuote(carQuoteEntity);
 		return SUCCESS;
 	}
 
 	@Override
 	public CarQuoteEntity getModel() {
-		return carQuote_M;
+		return carQuoteEntity;
 	}
 
 	@Override
