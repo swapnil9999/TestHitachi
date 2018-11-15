@@ -11,25 +11,39 @@ import com.demo.car.entity.CarQuoteEntity;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-public class CreateCarQouteAction extends ActionSupport implements
-		ServletContextAware, ModelDriven<CarQuoteEntity> {
+public class CreateCarQuoteAction extends ActionSupport
+		implements
+			ServletContextAware,
+			ModelDriven<CarQuoteEntity> {
 
 	/**
-	 *  statusMsg =  
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
+	 * statusMsg =
 	 */
 	private String statusMsg;
 	private ServletContext ctx;
-	private CarQuoteEntity carQuoteM = new CarQuoteEntity();
+	private CarQuoteEntity carQuote = new CarQuoteEntity();
 
 	public String execute() {
-		SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
-		CarQuoteDao carQuoteDao = new CarQuoteDaoImpl(sf);
-		carQuoteM.setQuoteNo(generateQuoteNo());
-		carQuoteM.setQuote(100000);
-		CarQuoteEntity carQuoteM1 = carQuoteDao.saveCarQuote(carQuoteM);
-		return SUCCESS;
+		try {
+			SessionFactory sf = (SessionFactory) ctx
+					.getAttribute("SessionFactory");
+			CarQuoteDao carQuoteDao = new CarQuoteDaoImpl(sf);
+			carQuote.setQuoteNo(generateQuoteNo());
+			carQuote.setQuote(100000);
+			carQuoteDao.saveCarQuote(carQuote);
+			return SUCCESS;
+		} catch (Exception e) {
+			return ERROR;
+		}
 	}
 
+	/**
+	 * @return
+	 */
 	public String generateQuoteNo() {
 
 		int randomPIN = (int) (Math.random() * 9000) + 1000;
@@ -47,7 +61,7 @@ public class CreateCarQouteAction extends ActionSupport implements
 
 	@Override
 	public CarQuoteEntity getModel() {
-		return carQuoteM;
+		return carQuote;
 	}
 
 	@Override

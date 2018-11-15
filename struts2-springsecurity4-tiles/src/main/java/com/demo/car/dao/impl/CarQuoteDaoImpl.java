@@ -2,6 +2,7 @@ package com.demo.car.dao.impl;
 
 import java.util.List;
 
+import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -34,9 +35,10 @@ public class CarQuoteDaoImpl implements CarQuoteDao {
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
 		Query query = session
-				.createQuery("from CarQuote_M where quote_no=:quoteNo");
+				.createQuery("from CarQuoteEntity where quote_no=:quoteNo");
 		query.setString("quoteNo", quoteNo);
 		CarQuoteEntity carQuote_M = (CarQuoteEntity) query.uniqueResult();
+		Hibernate.initialize(carQuote_M);
 		return carQuote_M;
 	}
 
@@ -46,7 +48,7 @@ public class CarQuoteDaoImpl implements CarQuoteDao {
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
 		Query query = session
-				.createQuery("from CarQuote_M where quote_no=:quoteNo");
+				.createQuery("from CarQuoteEntity where quote_no=:quoteNo");
 		query.setString("quoteNo", quoteNo);
 		CarQuoteEntity carQuote_M = (CarQuoteEntity) query.uniqueResult();
 		if (carQuote_M == null) {
@@ -61,7 +63,7 @@ public class CarQuoteDaoImpl implements CarQuoteDao {
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
 		Query query = session
-				.createQuery("from CarQuote_M where created_by=:username");
+				.createQuery("from CarQuoteEntity where created_by=:username");
 		query.setString("username", username);
 
 		carQuote_Ms = (List<CarQuoteEntity>) query.list();
@@ -73,7 +75,7 @@ public class CarQuoteDaoImpl implements CarQuoteDao {
 		List<CarQuoteEntity> carQuote_Ms;
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
-		Query query = session.createQuery("from CarQuote_M ");
+		Query query = session.createQuery("from CarQuoteEntity ");
 
 		carQuote_Ms = (List<CarQuoteEntity>) query.list();
 		return carQuote_Ms;

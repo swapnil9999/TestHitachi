@@ -23,7 +23,7 @@
 		<!-- Outputs the SQL queries, should be disabled in Production -->
 		<property name="hibernate.show_sql">true</property>
 		
-		<mapping class="com.demo.car.entity.CarQuote_M"/>
+		<mapping class="com.demo.car.entity.CarQuoteEntity"/>
 
 	</session-factory>
 </hibernate-configuration>

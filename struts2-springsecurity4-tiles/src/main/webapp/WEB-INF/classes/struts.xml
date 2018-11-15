@@ -27,7 +27,7 @@
 			<result name="success" type="tiles">createCarQuote</result>
 		</action>
 
-		<action name="createCarQuoteSubmit" class="com.demo.car.action.CreateCarQouteAction">
+		<action name="createCarQuoteSubmit" class="com.demo.car.action.CreateCarQuoteAction">
 			<result name="success" type="tiles">createCarQuoteSuccess</result>
 			<result name="error1" type="tiles">createCarQuoteInvalidQuoteNO
 			</result>

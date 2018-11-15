@@ -16,6 +16,10 @@ import com.opensymphony.xwork2.ModelDriven;
 public class EditCarQuoteAction extends ActionSupport implements
 		ServletContextAware, ModelDriven<CarQuoteEntity> {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private CarQuoteEntity carQuote_M = new CarQuoteEntity();
 	private String username;
 	private ServletContext ctx;
@@ -24,6 +28,9 @@ public class EditCarQuoteAction extends ActionSupport implements
 	public String execute() throws Exception {
 		SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
 		CarQuoteDao carQuoteDao = new CarQuoteDaoImpl(sf);
+		
+		carQuote_M= carQuoteDao.searchCarQuote(carQuote_M
+				.getQuoteNo());
 		CarQuoteEntity carQuote_M1 = carQuoteDao.searchCarQuote(carQuote_M
 				.getQuoteNo());
 		username = carQuote_M1.getCreatedBy();
