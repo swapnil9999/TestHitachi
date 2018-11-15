@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+	<package name="default" namespace="/" extends="struts-default">
+		
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+
+		<action name="login">
+			<result name="success" type="tiles">login</result>
+		</action>
+
+		<action name="logout">
+			<result name="success" type="tiles">login</result>
+		</action>
+
+		<action name="welcome" class="com.demo.car.action.MainAction">
+			<result name="success" type="tiles">welcome</result>
+		</action>
+
+		<action name="createCarQuote" class="com.demo.car.action.MainAction">
+			<result name="success" type="tiles">createCarQuote</result>
+		</action>
+
+		<action name="createCarQuoteSubmit" class="com.demo.car.action.CreateCarQouteAction">
+			<result name="success" type="tiles">createCarQuoteSuccess</result>
+			<result name="error1" type="tiles">createCarQuoteInvalidQuoteNO
+			</result>
+		</action>
+
+		<action name="editCarQuote" method="loadQuoteNo" class="com.demo.car.action.MainAction">
+			<result name="success" type="tiles">editCarQuote</result>
+		</action>
+
+		<action name="editCarQuoteAction" class="com.demo.car.action.EditCarQuoteAction">
+			<result name="success" type="tiles">editCarQuoteTemplate</result>
+	   <!-- <result name="success" type="tiles">createCarQuote</result> -->
+		</action>
+
+		<action name="editCarQuoteSubmit" method="draftSave" class="com.demo.car.action.EditCarQuoteAction">
+			<result name="success" type="tiles">editCarQuoteSuccess</result>
+		</action>
+
+		<action name="createCarQuoteSearch" class="com.demo.car.action.SearchCarQuoteAction">
+			<result name="success" type="tiles">createCarQuoteEdit</result>
+		</action>
+		
+		<action name="createCarQuote" class="com.demo.car.action.MainAction">
+			<result name="success" type="tiles">createCarQuote</result>
+		</action>
+
+		<action name="searchCarQuote" class="com.demo.car.action.MainAction">
+			<result name="success" type="tiles">searchCarQuote</result>
+		</action>
+
+
+
+
+	</package>
+</struts>
