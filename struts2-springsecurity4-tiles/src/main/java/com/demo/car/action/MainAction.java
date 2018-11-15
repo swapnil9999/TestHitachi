@@ -1,13 +1,6 @@
 package com.demo.car.action;
 
-import com.demo.car.dao.CarQuoteDao;
-import com.demo.car.dao.impl.CarQuoteDaoImpl;
-import com.demo.car.entity.CarQuoteEntity;
-import com.opensymphony.xwork2.ActionSupport;
-
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -17,12 +10,18 @@ import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.util.ServletContextAware;
 import org.hibernate.SessionFactory;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import com.demo.car.dao.CarQuoteDao;
+import com.demo.car.dao.impl.CarQuoteDaoImpl;
+import com.demo.car.entity.CarQuoteEntity;
+import com.opensymphony.xwork2.ActionSupport;
+
 public class MainAction extends ActionSupport implements ServletContextAware {
 
+	
+	private static final long serialVersionUID = 1L;
 	public String username;
 	public String password;
 	private ServletContext ctx;
@@ -38,14 +37,11 @@ public class MainAction extends ActionSupport implements ServletContextAware {
 	HttpServletRequest request = ServletActionContext.getRequest();
 
 	public String execute() {
-		UserDetails userDetails = (UserDetails) SecurityContextHolder
-				.getContext().getAuthentication().getPrincipal();
-		Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) userDetails
-				.getAuthorities();
+/*		UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+*/		/*Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>) userDetails.getAuthorities();
 		for (Iterator i = authorities.iterator(); i.hasNext();) {
-			SimpleGrantedAuthority authority = (SimpleGrantedAuthority) i
-					.next();
-		}
+			SimpleGrantedAuthority authority = (SimpleGrantedAuthority) i.next();
+		}*/
 		this.setUsername(request.getUserPrincipal().getName());
 
 		// setting values for No of Doors.
@@ -110,12 +106,12 @@ public class MainAction extends ActionSupport implements ServletContextAware {
 		SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
 		CarQuoteDao carQuoteDao = new CarQuoteDaoImpl(sf);
 		if (hasUserRole == true) {
-			for (CarQuoteEntity carQuote_M : carQuoteDao.loadQuoteNo())
-				quoteNo.add(carQuote_M.getQuoteNo());
+			for (CarQuoteEntity carQuoteEntity : carQuoteDao.loadQuoteNo())
+				quoteNo.add(carQuoteEntity.getQuoteNo());
 		} else {
-			for (CarQuoteEntity carQuote_M : carQuoteDao.loadQuoteNo(userDetails
+			for (CarQuoteEntity quoteEntity : carQuoteDao.loadQuoteNo(userDetails
 					.getUsername()))
-				quoteNo.add(carQuote_M.getQuoteNo());
+				quoteNo.add(quoteEntity.getQuoteNo());
 		}
 		return SUCCESS;
 

@@ -11,18 +11,10 @@ import com.demo.car.entity.CarQuoteEntity;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
 
-public class CreateCarQuoteAction extends ActionSupport
-		implements
-			ServletContextAware,
-			ModelDriven<CarQuoteEntity> {
+public class CreateCarQuoteAction extends ActionSupport implements ServletContextAware,ModelDriven<CarQuoteEntity> {
 
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
-	/**
-	 * statusMsg =
-	 */
 	private String statusMsg;
 	private ServletContext ctx;
 	private CarQuoteEntity carQuote = new CarQuoteEntity();
@@ -41,9 +33,7 @@ public class CreateCarQuoteAction extends ActionSupport
 		}
 	}
 
-	/**
-	 * @return
-	 */
+	
 	public String generateQuoteNo() {
 
 		int randomPIN = (int) (Math.random() * 9000) + 1000;

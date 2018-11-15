@@ -6,7 +6,7 @@ import com.demo.car.entity.CarQuoteEntity;
 
 public interface CarQuoteDao {
 
-	public CarQuoteEntity saveCarQuote(CarQuoteEntity carQuote_M);
+	public CarQuoteEntity saveCarQuote(CarQuoteEntity carQuoteEntity);
 
 	public CarQuoteEntity searchCarQuote(String quoteNo);
 

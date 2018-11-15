@@ -14,11 +14,13 @@ import com.opensymphony.xwork2.ModelDriven;
 public class SearchCarQuoteAction extends ActionSupport implements
 		ServletContextAware, ModelDriven<CarQuoteEntity> {
 
-	private CarQuoteEntity carQuote_M = new CarQuoteEntity();
+	
+	private static final long serialVersionUID = 1L;
+	private CarQuoteEntity carQuoteEntity = new CarQuoteEntity();
 
 	@Override
 	public CarQuoteEntity getModel() {
-		return carQuote_M;
+		return carQuoteEntity;
 	}
 
 	private ServletContext ctx;
@@ -32,11 +34,11 @@ public class SearchCarQuoteAction extends ActionSupport implements
 	public String execute() throws Exception {
 		SessionFactory sf = (SessionFactory) ctx.getAttribute("SessionFactory");
 		CarQuoteDao carQuoteDao = new CarQuoteDaoImpl(sf);
-		CarQuoteEntity carQuote_M1 = carQuoteDao.searchCarQuote(carQuote_M.getQuoteNo());
-		carQuote_M.setQuoteNo(carQuote_M1.getQuoteNo());
-		carQuote_M.setCarMake(carQuote_M1.getCarMake());
-		carQuote_M.setCarModel(carQuote_M1.getCarModel());
-		carQuote_M.setId(carQuote_M1.getId());
+		CarQuoteEntity carQuoteEntity1 = carQuoteDao.searchCarQuote(carQuoteEntity.getQuoteNo());
+		carQuoteEntity.setQuoteNo(carQuoteEntity1.getQuoteNo());
+		carQuoteEntity.setCarMake(carQuoteEntity1.getCarMake());
+		carQuoteEntity.setCarModel(carQuoteEntity1.getCarModel());
+		carQuoteEntity.setId(carQuoteEntity1.getId());
 		return SUCCESS;
 	}
 

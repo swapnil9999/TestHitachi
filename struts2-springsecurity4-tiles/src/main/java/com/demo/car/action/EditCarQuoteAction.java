@@ -16,9 +16,7 @@ import com.opensymphony.xwork2.ModelDriven;
 public class EditCarQuoteAction extends ActionSupport implements
 		ServletContextAware, ModelDriven<CarQuoteEntity> {
 
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private CarQuoteEntity carQuoteEntity = new CarQuoteEntity();
 	private String username;

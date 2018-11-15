@@ -2,12 +2,10 @@ package com.demo.car.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.springframework.security.core.userdetails.User;
 
 import com.demo.car.dao.CarQuoteDao;
 import com.demo.car.entity.CarQuoteEntity;
@@ -21,25 +19,39 @@ public class CarQuoteDaoImpl implements CarQuoteDao {
 	}
 
 	@Override
-	public CarQuoteEntity saveCarQuote(CarQuoteEntity carQuote_M) {
+	public CarQuoteEntity saveCarQuote(CarQuoteEntity carQuoteEntity) {
+
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
-		session.saveOrUpdate(carQuote_M);
-		tx.commit();
-		session.close();
-		return carQuote_M;
+		try {
+			session.saveOrUpdate(carQuoteEntity);
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return carQuoteEntity;
 	}
 
 	@Override
 	public CarQuoteEntity searchCarQuote(String quoteNo) {
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
-		Query query = session
-				.createQuery("from CarQuoteEntity where quote_no=:quoteNo");
-		query.setString("quoteNo", quoteNo);
-		CarQuoteEntity carQuote_M = (CarQuoteEntity) query.uniqueResult();
-		Hibernate.initialize(carQuote_M);
-		return carQuote_M;
+		CarQuoteEntity carQuoteEntity = null;
+		try {
+
+			Query query = session
+					.createQuery("from CarQuoteEntity where quote_no=:quoteNo");
+			query.setString("quoteNo", quoteNo);
+			carQuoteEntity = (CarQuoteEntity) query.uniqueResult();
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return carQuoteEntity;
 	}
 
 	@Override
@@ -47,37 +59,63 @@ public class CarQuoteDaoImpl implements CarQuoteDao {
 		boolean flag = false;
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
-		Query query = session
-				.createQuery("from CarQuoteEntity where quote_no=:quoteNo");
-		query.setString("quoteNo", quoteNo);
-		CarQuoteEntity carQuote_M = (CarQuoteEntity) query.uniqueResult();
-		if (carQuote_M == null) {
-			flag = true;
+		try {
+			Query query = session
+					.createQuery("from CarQuoteEntity where quote_no=:quoteNo");
+			query.setString("quoteNo", quoteNo);
+			CarQuoteEntity carQuoteEntity = (CarQuoteEntity) query.uniqueResult();
+			if (carQuoteEntity == null) {
+				flag = true;
+			}
+			tx.commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+
 		}
 		return flag;
 	}
 
 	@Override
 	public List<CarQuoteEntity> loadQuoteNo(String username) {
-		List<CarQuoteEntity> carQuote_Ms;
+		List<CarQuoteEntity> carQuoteEntities = null;
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
-		Query query = session
-				.createQuery("from CarQuoteEntity where created_by=:username");
-		query.setString("username", username);
+		try {
+			Query query = session
+					.createQuery("from CarQuoteEntity where created_by=:username");
+			query.setString("username", username);
 
-		carQuote_Ms = (List<CarQuoteEntity>) query.list();
-		return carQuote_Ms;
+			carQuoteEntities = (List<CarQuoteEntity>) query.list();
+			tx.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+
+		}
+		return carQuoteEntities;
 	}
 
 	@Override
 	public List<CarQuoteEntity> loadQuoteNo() {
-		List<CarQuoteEntity> carQuote_Ms;
+		List<CarQuoteEntity> carQuoteEntities = null;
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
-		Query query = session.createQuery("from CarQuoteEntity ");
+		try {
 
-		carQuote_Ms = (List<CarQuoteEntity>) query.list();
-		return carQuote_Ms;
+			Query query = session.createQuery("from CarQuoteEntity ");
+
+			carQuoteEntities = (List<CarQuoteEntity>) query.list();
+			tx.commit();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+		return carQuoteEntities;
 	}
 }
